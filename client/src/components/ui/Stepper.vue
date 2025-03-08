@@ -1,6 +1,6 @@
 <template>
     <header class="stepper">
-        <p>Etapa <span class="stepper-count">{{ currentStep }}</span> de 4</p>
+        <p>Etapa <span class="stepper-counter">{{ currentStep }}</span> de <span class="stepper-total">4</span></p>
     </header>
 </template>
 

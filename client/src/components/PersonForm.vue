@@ -19,7 +19,7 @@
                 :error="errorMessage.phone"/>
         </template>
         <template #footer>
-            <Button @click="backStep">Voltar</Button>
+            <Button type="button" variant="outline" @click="backStep">Voltar</Button>
             <Button type="submit" :disabled="isDisabled">Continuar</Button>
         </template>
     </Form>
