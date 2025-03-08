@@ -1,3 +1,4 @@
+@use '../colors.scss' as *;
 
 .input {
     padding: 8px;
@@ -10,10 +11,19 @@
         gap: 4px;
     }
     &-error {
-        border-color: #ff4444;
+        border-color: $color-danger;
         &__message {
-            color: #ff4444;
+            color: $color-danger;
             font-size: 12px;
+            font-weight: bold;
+        }
+    }
+
+    &-radio {
+        display: inline-flex;
+        margin-right: 20px;
+        &__label {
+            margin-left: 8px;
         }
     }
 }

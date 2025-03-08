@@ -9,7 +9,7 @@
                 :placeholder="placeholder"
                 :class="[
                     'input', 
-                    { 'input-error': hasError }
+                    { 'input-error': error }
                 ]"
                 v-mask="mask"
             />
@@ -22,17 +22,15 @@
                 :placeholder="placeholder"
                 :class="[
                     'input', 
-                    { 'input-error': hasError }
+                    { 'input-error': error }
                 ]"
             />
         </template>
-        <span v-if="hasError" class="input-error__message">{{ errorMessage }}</span>
+        <span v-if="error" class="input-error__message">{{ error }}</span>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
 const props = defineProps({
     modelValue: {
         type: String,
@@ -53,18 +51,17 @@ const props = defineProps({
     mask: {
         type: String,
         default: null
+    },
+    error: {
+        type: String,
+        default: null
     }
 })
 
 const emit = defineEmits(['update:modelValue']);
 
-const hasError = ref(false);
-const errorMessage = ref('');
-
 const handleInput = (event) => {
     const value = event.target.value;
-    hasError.value = false;
-    errorMessage.value = '';
 
     emit('update:modelValue', value);
 }
