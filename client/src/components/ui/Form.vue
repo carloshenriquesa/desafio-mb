@@ -3,7 +3,11 @@
         class="form" 
         @submit.prevent="$emit('submit')"
     >
-        <slot></slot>
+        <slot name="fields"></slot>
+        
+        <footer class="form-footer">
+            <slot name="footer"></slot>
+        </footer>
     </form>
 </template>
 

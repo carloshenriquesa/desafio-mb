@@ -1,11 +1,12 @@
-    <template>
-        <h1 class="title">Seja bem vindo(a)</h1>
-        <Form @submit="nextStep">
+<template>
+    <h1 class="title">Seja bem vindo(a)</h1>
+    <Form @submit="nextStep">
+        <template #fields>
             <Input
                 label="Endereço de e-mail"
                 type="text"
                 v-model="form.email"
-                :error="errorMessage"/>
+                :error="errorMessage.email"/>
             <div>
                 <Radio
                     :idFor="PERSON_TYPES.PF.code"
@@ -22,9 +23,12 @@
                     :label="PERSON_TYPES.PJ.label"
                 />
             </div>
+        </template>
+        <template #footer>
             <Button type="submit" :disabled="isDisabled">Continuar</Button>
-        </Form>
-    </template>
+        </template>
+    </Form>
+</template>
 
 <script setup>
     import Input from '@/components/ui/Input.vue'
@@ -40,19 +44,20 @@
         form: Object,
     });
 
-    const errorMessage = ref('');
+    const errorMessage = ref({
+        email: '',
+    });
 
     const emit = defineEmits(['nextStep']);
 
     const isDisabled = computed(() => {
-        return !props.form.email || !props.form.personType;
+        return !props.form.email.length || !props.form.personType;
     });
 
     function nextStep() {
-        if (!isValidEmail(props.form.email)) {
-            errorMessage.value = 'E-mail inválido';
-            return;
-        }
+        errorMessage.value.email = isValidEmail(props.form.email) ? '' : 'E-mail inválido';
+        if (errorMessage.value.email) return;
+
         emit('nextStep');
     }
 </script>

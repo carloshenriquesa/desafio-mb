@@ -1,25 +1,24 @@
 <template>
   <main>
-    <Breadcrumb :currentStep="currentStep" />
+    <Stepper :currentStep="currentStep" />
+    
     <EmailForm 
       :form="form"
       @nextStep="nextStep"
       v-if="currentStep === 1" />
+
     <PersonForm
       :form="form"
       @backStep="backStep"
       @nextStep="nextStep"
-      v-if="currentStep === 2 && form.personType === 'PF'" />
-    <LegalPersonForm
-      :form="form"
-      @backStep="backStep"
-      @nextStep="nextStep"
-      v-if="currentStep === 2 && form.personType === 'PJ'" />
+      v-if="currentStep === 2" />
+
     <PasswordForm
       :form="form"
       @backStep="backStep"
       @nextStep="nextStep"
       v-if="currentStep === 3" />
+
     <ReviewForm :form="form" v-if="currentStep === 4" />
   </main>
 </template>
@@ -27,13 +26,13 @@
 <script setup>
   import EmailForm from '@/components/EmailForm.vue'
   import PersonForm from '@/components/PersonForm.vue'
-  import LegalPersonForm from '@/components/LegalPersonForm.vue'
   import PasswordForm from '@/components/PasswordForm.vue'
   import ReviewForm from '@/components/ReviewForm.vue'
-  import Breadcrumb from './components/ui/Breadcrumb.vue'
+  import Stepper from './components/ui/Stepper.vue'
   import { ref } from 'vue'
 
   const currentStep = ref(1);
+
   const form = ref({
     email: '',
     personType: '',
