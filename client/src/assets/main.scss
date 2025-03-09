@@ -1,5 +1,5 @@
-@use './base.scss' as *;
-@use './ui.scss' as *;
+@use "./base.scss" as *;
+@use "./ui.scss" as *;
 
 #app {
   max-width: 500px;
@@ -8,7 +8,7 @@
   font-weight: normal;
 }
 
-.title{
+.title {
   margin-bottom: 2rem;
   font-weight: bold;
 }

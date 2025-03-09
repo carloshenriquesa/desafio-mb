@@ -1,11 +1,11 @@
-@use '../colors.scss' as *;
+@use "../colors.scss" as *;
 
-.stepper{
-    &-counter{
-        font-weight: bold;
-        color: $color-primary;
-    }
-    &-total{
-        font-weight: bold;    
-    }
+.stepper {
+  &-counter {
+    font-weight: bold;
+    color: $color-primary;
+  }
+  &-total {
+    font-weight: bold;
+  }
 }

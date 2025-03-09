@@ -1,60 +1,59 @@
 @use "sass:color";
-@use '../colors.scss' as *;
+@use "../colors.scss" as *;
 
 .button {
-    display: inline-flex;
-    height: 40px;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    border: none;
-    outline: none;
-    gap: 8px;
-    &-primary {
-      background-color: $color-primary;
-      color: white;
-      &:hover:not(:disabled) {
-        background-color: color.adjust($color-primary, $lightness: -10%);
-      }
+  display: inline-flex;
+  height: 40px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+  gap: 8px;
+  &-primary {
+    background-color: $color-primary;
+    color: white;
+    &:hover:not(:disabled) {
+      background-color: color.adjust($color-primary, $lightness: -10%);
     }
-    &-outline {
-      background-color: transparent;
-      border: 2px solid $color-primary;
-      color: $color-primary;
-      &:hover:not(:disabled) {
-        color: color.adjust($color-primary, $lightness: -20%);
-        border-color: color.adjust($color-primary, $lightness: -20%);
-      }
+  }
+  &-outline {
+    background-color: transparent;
+    border: 2px solid $color-primary;
+    color: $color-primary;
+    &:hover:not(:disabled) {
+      color: color.adjust($color-primary, $lightness: -20%);
+      border-color: color.adjust($color-primary, $lightness: -20%);
     }
-    &:disabled {
-      cursor: not-allowed;
-      opacity: 0.5;
-    }
-    &-loading {
-      position: relative;
-      cursor: wait;
-    }
-    &-loader {
-        width: 16px;
-        height: 16px;
-        border: 2px solid #ffffff;
-        border-bottom-color: transparent;
-        border-radius: 50%;
-        display: inline-block;
-        animation: rotation 1s linear infinite;
-    }
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  &-loading {
+    position: relative;
+    cursor: wait;
+  }
+  &-loader {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ffffff;
+    border-bottom-color: transparent;
+    border-radius: 50%;
+    display: inline-block;
+    animation: rotation 1s linear infinite;
+  }
 }
-      
-  
+
 @keyframes rotation {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

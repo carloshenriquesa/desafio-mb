@@ -1,17 +1,17 @@
-@use '../colors.scss' as *;
+@use "../colors.scss" as *;
 
-.alert{
-    padding: 10px 20px;
-    margin-bottom: 24px;
-    color: white;
-    border-radius: 5px;
-    &-text {
-        font-weight: bold;
-    }
-    &-success{
-        background-color: $color-success;
-    }
-    &-error{
-        background-color: $color-danger;
-    }
+.alert {
+  padding: 10px 20px;
+  margin-bottom: 24px;
+  color: white;
+  border-radius: 5px;
+  &-text {
+    font-weight: bold;
+  }
+  &-success {
+    background-color: $color-success;
+  }
+  &-error {
+    background-color: $color-danger;
+  }
 }
