@@ -12,6 +12,7 @@
                     { 'input-error': error }
                 ]"
                 v-mask="mask"
+                :disabled="disabled"
             />
         </template>
         <template v-else>
@@ -24,6 +25,7 @@
                     'input', 
                     { 'input-error': error }
                 ]"
+                :disabled="disabled"
             />
         </template>
         <span v-if="error" class="input-error__message">{{ error }}</span>
@@ -55,6 +57,10 @@ const props = defineProps({
     error: {
         type: String,
         default: null
+    },
+    disabled: {
+        type: Boolean,
+        default: false
     }
 })
 

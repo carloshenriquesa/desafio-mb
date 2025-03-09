@@ -9,18 +9,18 @@
                 :error="errorMessage.email"/>
             <div>
                 <Radio
-                    :idFor="PERSON_TYPES.PF.code"
-                    :value="PERSON_TYPES.PF.code"
+                    idFor="PF"
+                    value="PF"
                     name="personType"
                     v-model="form.personType"
-                    :label="PERSON_TYPES.PF.label"
+                    label="Pessoa Física"
                 />
                 <Radio
-                    :idFor="PERSON_TYPES.PJ.code"
-                    :value="PERSON_TYPES.PJ.code"
+                    idFor="PJ"
+                    value="PJ"
                     name="personType"
                     v-model="form.personType"
-                    :label="PERSON_TYPES.PJ.label"
+                    label="Pessoa jurídica"
                 />
             </div>
         </template>

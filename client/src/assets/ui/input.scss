@@ -5,6 +5,10 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
+    &:disabled{
+        background-color: $color-gray-light;
+        color: $color-gray;
+    }
     &-container {
         display: flex;
         flex-direction: column;

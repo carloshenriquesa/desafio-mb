@@ -1,6 +1,7 @@
 export const MASKS = {
     CPF: '###.###.###-##',
     CNPJ: '##.###.###/####-##',
+    PHONE: '(##) #####-####',
 }
 
 export const PERSON_TYPES = {
