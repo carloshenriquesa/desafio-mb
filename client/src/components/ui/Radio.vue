@@ -3,7 +3,8 @@
         <input
             :id="idFor" 
             :value="value"
-            @input="handleInput" 
+            :checked="modelValue === value"
+            @change="handleInput" 
             type="radio" 
             :name="name" />
         <label class="input-radio__label" :for="idFor">{{ label }}</label>
@@ -11,8 +12,6 @@
 </template>
 
 <script setup>
-const emit = defineEmits(['update:modelValue']);
-
 const props = defineProps({
     modelValue: {
         type: [String, Number, Boolean],
@@ -36,8 +35,9 @@ const props = defineProps({
     }
 });
 
+const emit = defineEmits(['update:modelValue']);
+
 const handleInput = (event) => {
-    const value = event.target.value;
-    emit('update:modelValue', value);
+    emit('update:modelValue', props.value);
 }
 </script>
