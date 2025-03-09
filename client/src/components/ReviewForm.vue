@@ -187,7 +187,7 @@ async function register() {
     isLoading.value = true;
     const response = await postRegisterService(props.form);
     alertMessage.value.type = "success";
-    alertMessage.value.text = `${response.user.name} (${response.user.email}) cadastrado(a) com sucesso!`;
+    alertMessage.value.text = `Cadastro de ${response.user.name} (${response.user.email}) realizado com sucesso!`;
   } catch (error) {
     alertMessage.value.type = "error";
     alertMessage.value.text = error.message;
