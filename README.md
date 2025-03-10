@@ -37,7 +37,7 @@ npm run server
 
 Caso queira executar o Vue localmente, pode usar o seguinte comando no diretório raiz:
 ~~~sh
-npm run server
+npm run dev:client
 ~~~
 
 Nesse caso o acesso será no endereço `http://localhost:5173`
