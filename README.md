@@ -27,13 +27,24 @@ git clone https://github.com/carloshenriquesa/desafio-mb.git
 cd desafio-mb
 ~~~
 
-2. Execute o comando para rodar o servidor localmente:
+2. Instale as dependências do server e client:
+
+~~~sh
+npm install
+~~~
+
+~~~sh
+cd client
+npm install
+~~~
+
+3. No diretório raiz, execute o comando para rodar o servidor localmente:
 
 ~~~sh
 npm run server
 ~~~
 
-3. Agora você acessar localmente o projeto no endereço `http://localhost:3000`
+4. Agora você pode acessar localmente o projeto no endereço `http://localhost:3000`
 
 Caso queira executar o Vue localmente, pode usar o seguinte comando no diretório raiz:
 ~~~sh
