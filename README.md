@@ -22,20 +22,22 @@ Além do fluxo de sucesso, também há uma simulação de erro que acontece de m
 
 1. Clone o repositório:
 
-   ```sh
-   git clone https://github.com/carloshenriquesa/desafio-mb.git
-   cd desafio-mb
+~~~sh
+git clone https://github.com/carloshenriquesa/desafio-mb.git
+cd desafio-mb
+~~~
 
 2. Execute o comando para rodar o servidor localmente:
 
-    ```sh
-   npm run server
+~~~sh
+npm run server
+~~~
 
 3. Agora você acessar localmente o projeto no endereço `http://localhost:3000`
 
 Caso queira executar o Vue localmente, pode usar o seguinte comando no diretório raiz:
-   
-    ```sh
-	   npm run dev:client
+~~~sh
+npm run server
+~~~
 
 Nesse caso o acesso será no endereço `http://localhost:5173`
