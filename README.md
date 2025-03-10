@@ -44,7 +44,7 @@ npm install
 npm run server
 ~~~
 
-4. Agora você pode acessar localmente o projeto no endereço `http://localhost:3000`
+4. Agora você pode acessar localmente o projeto no endereço `http://localhost:3000/registration`
 
 Caso queira executar o Vue localmente, pode usar o seguinte comando no diretório raiz:
 ~~~sh
