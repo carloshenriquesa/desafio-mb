@@ -36,6 +36,6 @@ Além do fluxo de sucesso, também há uma simulação de erro que acontece de m
 Caso queira executar o Vue localmente, pode usar o seguinte comando no diretório raiz:
    
     ```sh
-   npm run dev:client
+	   npm run dev:client
 
 Nesse caso o acesso será no endereço `http://localhost:5173`
