@@ -1,63 +1,65 @@
 <template>
   <h1 class="title">{{ title }}</h1>
-  <Form @submit="nextStep">
+  <UiForm @submit="nextStep">
     <template #fields>
-      <Input
+      <UiInput
         label="Nome"
         type="text"
-        v-model="form.name"
+        v-model="localUiForm.name"
         :error="errorMessage.name"
       />
-      <template v-if="form.personType == PERSON_TYPES.PF.code">
-        <Input
+      <template v-if="localUiForm.personType == PERSON_TYPES.PF.code">
+        <UiInput
           label="CPF"
           type="text"
           mask="###.###.###-##"
-          v-model="form.cpf"
+          v-model="localUiForm.cpf"
           :error="errorMessage.cpf"
         />
-        <Input
+        <UiInput
           label="Data de nascimento"
           type="date"
-          v-model="form.birthDate"
+          v-model="localUiForm.birthDate"
           :error="errorMessage.birthDate"
         />
       </template>
       <template v-else>
-        <Input
+        <UiInput
           label="CNPJ"
           type="text"
           mask="##.###.###/####-##"
-          v-model="form.cnpj"
+          v-model="localUiForm.cnpj"
           :error="errorMessage.cnpj"
         />
-        <Input
+        <UiInput
           label="Data de abertura"
           type="date"
-          v-model="form.openingDate"
+          v-model="localUiForm.openingDate"
           :error="errorMessage.openingDate"
         />
       </template>
-      <Input
+      <UiInput
         label="Telefone"
         type="text"
         mask="(##) #####-####"
-        v-model="form.phone"
+        v-model="localUiForm.phone"
         :error="errorMessage.phone"
       />
     </template>
     <template #footer>
-      <Button type="button" variant="outline" @click="backStep">Voltar</Button>
-      <Button type="submit" :disabled="isDisabled">Continuar</Button>
+      <UiButton type="button" variant="outline" @click="backStep"
+        >Voltar</UiButton
+      >
+      <UiButton type="submit" :disabled="isDisabled">Continuar</UiButton>
     </template>
-  </Form>
+  </UiForm>
 </template>
 
 <script setup>
-import Input from "@/components/ui/Input.vue";
-import Button from "@/components/ui/Button.vue";
-import Form from "@/components/ui/Form.vue";
-import { ref, computed, defineProps, defineEmits } from "vue";
+import UiInput from "@/components/ui/UiInput.vue";
+import UiButton from "@/components/ui/UiButton.vue";
+import UiForm from "@/components/ui/UiForm.vue";
+import { ref, computed } from "vue";
 import {
   isValidCPF,
   isValidCNPJ,
@@ -72,8 +74,10 @@ const props = defineProps({
   form: Object,
 });
 
+const localUiForm = ref({ ...props.form });
+
 const title = computed(() => {
-  return props.form.personType == PERSON_TYPES.PF.code
+  return localUiForm.value.personType == PERSON_TYPES.PF.code
     ? "Pessoa Física"
     : "Pessoa Jurídica";
 });
@@ -87,22 +91,22 @@ const errorMessage = ref({
   phone: "",
 });
 
-const emit = defineEmits(["backStep", "nextStep"]);
+const emit = defineEmits(["backStep", "nextStep", "update:form"]);
 
 const isDisabled = computed(() => {
-  if (props.form.personType == PERSON_TYPES.PF.code) {
+  if (localUiForm.value.personType == PERSON_TYPES.PF.code) {
     return (
-      !props.form.name.length ||
-      !props.form.cpf.length ||
-      !props.form.birthDate.length ||
-      !props.form.phone.length
+      !localUiForm.value.name.length ||
+      !localUiForm.value.cpf.length ||
+      !localUiForm.value.birthDate.length ||
+      !localUiForm.value.phone.length
     );
   } else {
     return (
-      !props.form.name.length ||
-      !props.form.cnpj.length ||
-      !props.form.openingDate.length ||
-      !props.form.phone.length
+      !localUiForm.value.name.length ||
+      !localUiForm.value.cnpj.length ||
+      !localUiForm.value.openingDate.length ||
+      !localUiForm.value.phone.length
     );
   }
 });
@@ -112,22 +116,26 @@ function backStep() {
 }
 
 function nextStep() {
-  errorMessage.value.name = isValidNameLength(props.form.name)
+  errorMessage.value.name = isValidNameLength(localUiForm.value.name)
     ? ""
     : "Nome inválido";
-  errorMessage.value.phone = isValidPhone(props.form.phone)
+  errorMessage.value.phone = isValidPhone(localUiForm.value.phone)
     ? ""
     : "Telefone inválido";
-  if (props.form.personType == PERSON_TYPES.PF.code) {
-    errorMessage.value.cpf = isValidCPF(props.form.cpf) ? "" : "CPF inválido";
-    errorMessage.value.birthDate = isValidBirthDate(props.form.birthDate)
+  if (localUiForm.value.personType == PERSON_TYPES.PF.code) {
+    errorMessage.value.cpf = isValidCPF(localUiForm.value.cpf)
+      ? ""
+      : "CPF inválido";
+    errorMessage.value.birthDate = isValidBirthDate(localUiForm.value.birthDate)
       ? ""
       : "Necessário ser maior de 18 anos";
   } else {
-    errorMessage.value.cnpj = isValidCNPJ(props.form.cnpj)
+    errorMessage.value.cnpj = isValidCNPJ(localUiForm.value.cnpj)
       ? ""
       : "CNPJ inválido";
-    errorMessage.value.openingDate = isValidOpeningDate(props.form.openingDate)
+    errorMessage.value.openingDate = isValidOpeningDate(
+      localUiForm.value.openingDate,
+    )
       ? ""
       : "Data de abertura inválida";
   }
@@ -139,6 +147,7 @@ function nextStep() {
     return;
   }
 
+  emit("update:form", { ...localUiForm.value });
   emit("nextStep");
 }
 </script>

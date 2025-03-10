@@ -5,9 +5,7 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
-
-const props = defineProps({
+defineProps({
   type: {
     type: String,
     validator: (value) => ["success", "error"].includes(value),

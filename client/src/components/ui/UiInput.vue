@@ -1,11 +1,11 @@
 <template>
   <div class="input-container">
     <label>{{ label }}</label>
-    <template v-if="props.mask">
+    <template v-if="mask">
       <input
         :type="type"
         :value="modelValue"
-        @input="handleInput"
+        @input="handleUiInput"
         :placeholder="placeholder"
         :class="['input', { 'input-error': error }]"
         v-mask="mask"
@@ -16,7 +16,7 @@
       <input
         :type="type"
         :value="modelValue"
-        @input="handleInput"
+        @input="handleUiInput"
         :placeholder="placeholder"
         :class="['input', { 'input-error': error }]"
         :disabled="disabled"
@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-const props = defineProps({
+defineProps({
   modelValue: {
     type: String,
     required: true,
@@ -60,7 +60,7 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const handleInput = (event) => {
+const handleUiInput = (event) => {
   const value = event.target.value;
 
   emit("update:modelValue", value);

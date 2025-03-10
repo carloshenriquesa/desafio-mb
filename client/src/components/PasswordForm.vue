@@ -1,11 +1,11 @@
 <template>
   <h1 class="title">Senha de acesso</h1>
-  <Form @submit="nextStep">
+  <UiForm @submit="nextStep">
     <template #fields>
-      <Input
+      <UiInput
         label="Senha"
         type="password"
-        v-model="form.password"
+        v-model="localUiForm.password"
         :error="errorMessage.password"
       />
       <small
@@ -13,31 +13,35 @@
       >
     </template>
     <template #footer>
-      <Button type="button" variant="outline" @click="backStep">Voltar</Button>
-      <Button type="submit" :disabled="isDisabled">Continuar</Button>
+      <UiButton type="button" variant="outline" @click="backStep"
+        >Voltar</UiButton
+      >
+      <UiButton type="submit" :disabled="isDisabled">Continuar</UiButton>
     </template>
-  </Form>
+  </UiForm>
 </template>
 
 <script setup>
-import Input from "@/components/ui/Input.vue";
-import Button from "@/components/ui/Button.vue";
-import Form from "@/components/ui/Form.vue";
-import { ref, computed, defineProps, defineEmits } from "vue";
+import UiInput from "@/components/ui/UiInput.vue";
+import UiButton from "@/components/ui/UiButton.vue";
+import UiForm from "@/components/ui/UiForm.vue";
+import { ref, computed } from "vue";
 import { isValidPassword } from "@shared/validators.js";
 
 const props = defineProps({
   form: Object,
 });
 
+const localUiForm = ref({ ...props.form });
+
 const errorMessage = ref({
   password: "",
 });
 
-const emit = defineEmits(["backStep", "nextStep"]);
+const emit = defineEmits(["backStep", "nextStep", "update:form"]);
 
 const isDisabled = computed(() => {
-  return !props.form.name.length;
+  return !localUiForm.value.password.length;
 });
 
 function backStep() {
@@ -45,10 +49,12 @@ function backStep() {
 }
 
 function nextStep() {
-  errorMessage.value.password = isValidPassword(props.form.password)
+  errorMessage.value.password = isValidPassword(localUiForm.value.password)
     ? ""
     : "Senha inválida";
   if (errorMessage.value.password) return;
+
+  emit("update:form", { ...localUiForm.value });
   emit("nextStep");
 }
 </script>

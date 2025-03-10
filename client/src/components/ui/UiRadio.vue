@@ -4,7 +4,7 @@
       :id="idFor"
       :value="value"
       :checked="modelValue === value"
-      @change="handleInput"
+      @change="handleUiInput"
       type="radio"
       :name="name"
     />
@@ -38,7 +38,7 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const handleInput = (event) => {
+const handleUiInput = () => {
   emit("update:modelValue", props.value);
 };
 </script>

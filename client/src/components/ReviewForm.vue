@@ -1,93 +1,93 @@
 <template>
   <h1 class="title">Revise suas informações</h1>
 
-  <Alert
+  <UiAlert
     :type="alertMessage.type"
     :text="alertMessage.text"
     v-if="alertMessage.type"
   />
 
-  <Form @submit="register">
+  <UiForm @submit="register">
     <template #fields>
-      <Input
+      <UiInput
         label="Endereço de e-mail"
         type="text"
-        v-model="form.email"
+        v-model="localUiForm.email"
         :error="errorMessage.email"
         :disabled="isLoading"
       />
-      <Input
+      <UiInput
         label="Nome"
         type="text"
-        v-model="form.name"
+        v-model="localUiForm.name"
         :error="errorMessage.name"
         :disabled="isLoading"
       />
-      <template v-if="form.personType == 'PF'">
-        <Input
+      <template v-if="localUiForm.personType == 'PF'">
+        <UiInput
           label="CPF"
           type="text"
           :mask="MASKS.CPF"
-          v-model="form.cpf"
+          v-model="localUiForm.cpf"
           :error="errorMessage.cpf"
           :disabled="isLoading"
         />
-        <Input
+        <UiInput
           label="Data de nascimento"
           type="date"
-          v-model="form.birthDate"
+          v-model="localUiForm.birthDate"
           :error="errorMessage.birthDate"
           :disabled="isLoading"
         />
       </template>
       <template v-else>
-        <Input
+        <UiInput
           label="CNPJ"
           type="text"
           :mask="MASKS.CNPJ"
-          v-model="form.cnpj"
+          v-model="localUiForm.cnpj"
           :error="errorMessage.cnpj"
           :disabled="isLoading"
         />
-        <Input
+        <UiInput
           label="Data de abertura"
           type="date"
-          v-model="form.openingDate"
+          v-model="localUiForm.openingDate"
           :error="errorMessage.openingDate"
           :disabled="isLoading"
         />
       </template>
-      <Input
+      <UiInput
         label="Telefone"
         type="text"
         :mask="MASKS.PHONE"
-        v-model="form.phone"
+        v-model="localUiForm.phone"
         :error="errorMessage.phone"
         :disabled="isLoading"
       />
-      <Input
+      <UiInput
         label="Senha"
         type="password"
-        v-model="form.password"
+        v-model="localUiForm.password"
         :error="errorMessage.password"
         :disabled="isLoading"
       />
     </template>
 
     <template #footer>
-      <Button type="submit" :disabled="isDisabled || isLoading">{{
+      <UiButton type="submit" :disabled="isDisabled || isLoading">{{
         isLoading ? "Enviando..." : "Cadastrar"
-      }}</Button>
+      }}</UiButton>
     </template>
-  </Form>
+  </UiForm>
 </template>
 
 <script setup>
-import Input from "@/components/ui/Input.vue";
-import Button from "@/components/ui/Button.vue";
-import Form from "@/components/ui/Form.vue";
-import Alert from "./ui/Alert.vue";
-import { ref, computed, defineProps, defineEmits } from "vue";
+import UiInput from "@/components/ui/UiInput.vue";
+import UiButton from "@/components/ui/UiButton.vue";
+import UiForm from "@/components/ui/UiForm.vue";
+import UiAlert from "./ui/UiAlert.vue";
+import { ref, computed } from "vue";
 import {
   isValidEmail,
   isValidNameLength,
@@ -105,6 +105,8 @@ const props = defineProps({
   form: Object,
 });
 
+const localUiForm = ref({ ...props.form });
+
 const alertMessage = ref({
   type: "",
   text: "",
@@ -121,27 +123,26 @@ const errorMessage = ref({
   password: "",
 });
 
-const emit = defineEmits(["backStep", "nextStep"]);
 const isLoading = ref(false);
 
 const isDisabled = computed(() => {
-  if (props.form.personType == PERSON_TYPES.PF.code) {
+  if (localUiForm.value.personType == PERSON_TYPES.PF.code) {
     return (
-      !props.form.name.length ||
-      !props.form.email.length ||
-      !props.form.cpf.length ||
-      !props.form.birthDate.length ||
-      !props.form.password.length ||
-      !props.form.phone.length
+      !localUiForm.value.name.length ||
+      !localUiForm.value.email.length ||
+      !localUiForm.value.cpf.length ||
+      !localUiForm.value.birthDate.length ||
+      !localUiForm.value.password.length ||
+      !localUiForm.value.phone.length
     );
   } else {
     return (
-      !props.form.name.length ||
-      !props.form.email.length ||
-      !props.form.cnpj.length ||
-      !props.form.openingDate.length ||
-      !props.form.password.length ||
-      !props.form.phone.length
+      !localUiForm.value.name.length ||
+      !localUiForm.value.email.length ||
+      !localUiForm.value.cnpj.length ||
+      !localUiForm.value.openingDate.length ||
+      !localUiForm.value.password.length ||
+      !localUiForm.value.phone.length
     );
   }
 });
@@ -150,29 +151,33 @@ async function register() {
   alertMessage.value.type = "";
   alertMessage.value.text = "";
 
-  errorMessage.value.email = isValidEmail(props.form.email)
+  errorMessage.value.email = isValidEmail(localUiForm.value.email)
     ? ""
     : "E-mail inválido";
-  errorMessage.value.name = isValidNameLength(props.form.name)
+  errorMessage.value.name = isValidNameLength(localUiForm.value.name)
     ? ""
     : "Nome inválido";
-  if (props.form.personType == PERSON_TYPES.PF.code) {
-    errorMessage.value.cpf = isValidCPF(props.form.cpf) ? "" : "CPF inválido";
-    errorMessage.value.birthDate = isValidBirthDate(props.form.birthDate)
+  if (localUiForm.value.personType == PERSON_TYPES.PF.code) {
+    errorMessage.value.cpf = isValidCPF(localUiForm.value.cpf)
+      ? ""
+      : "CPF inválido";
+    errorMessage.value.birthDate = isValidBirthDate(localUiForm.value.birthDate)
       ? ""
       : "Necessário ser maior de 18 anos";
   } else {
-    errorMessage.value.cnpj = isValidCNPJ(props.form.cnpj)
+    errorMessage.value.cnpj = isValidCNPJ(localUiForm.value.cnpj)
       ? ""
       : "CNPJ inválido";
-    errorMessage.value.openingDate = isValidOpeningDate(props.form.openingDate)
+    errorMessage.value.openingDate = isValidOpeningDate(
+      localUiForm.value.openingDate,
+    )
       ? ""
       : "Data de abertura inválida";
   }
-  errorMessage.value.phone = isValidPhone(props.form.phone)
+  errorMessage.value.phone = isValidPhone(localUiForm.value.phone)
     ? ""
     : "Telefone inválido";
-  errorMessage.value.password = isValidPassword(props.form.password)
+  errorMessage.value.password = isValidPassword(localUiForm.value.password)
     ? ""
     : "Senha inválida";
 
@@ -185,7 +190,7 @@ async function register() {
 
   try {
     isLoading.value = true;
-    const response = await postRegisterService(props.form);
+    const response = await postRegisterService(localUiForm.value);
     alertMessage.value.type = "success";
     alertMessage.value.text = `Cadastro de ${response.user.name} (${response.user.email}) realizado com sucesso!`;
   } catch (error) {

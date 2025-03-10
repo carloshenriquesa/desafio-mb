@@ -1,24 +1,28 @@
 <template>
   <main>
-    <Stepper :currentStep="currentStep" />
+    <UiStepper :currentStep="currentStep" />
 
-    <EmailForm :form="form" @nextStep="nextStep" v-if="currentStep === 1" />
+    <EmailForm
+      v-model:form="form"
+      @nextStep="nextStep()"
+      v-if="currentStep === 1"
+    />
 
     <PersonForm
-      :form="form"
+      v-model:form="form"
       @backStep="backStep"
       @nextStep="nextStep"
       v-if="currentStep === 2"
     />
 
     <PasswordForm
-      :form="form"
+      v-model:form="form"
       @backStep="backStep"
       @nextStep="nextStep"
       v-if="currentStep === 3"
     />
 
-    <ReviewForm :form="form" v-if="currentStep === 4" />
+    <ReviewForm v-model:form="form" v-if="currentStep === 4" />
   </main>
 </template>
 
@@ -27,7 +31,7 @@ import EmailForm from "@/components/EmailForm.vue";
 import PersonForm from "@/components/PersonForm.vue";
 import PasswordForm from "@/components/PasswordForm.vue";
 import ReviewForm from "@/components/ReviewForm.vue";
-import Stepper from "./components/ui/Stepper.vue";
+import UiStepper from "./components/ui/UiStepper.vue";
 import { ref, watch } from "vue";
 
 const currentStep = ref(1);

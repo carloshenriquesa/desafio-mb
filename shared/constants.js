@@ -1,16 +1,16 @@
 export const MASKS = {
-    CPF: '###.###.###-##',
-    CNPJ: '##.###.###/####-##',
-    PHONE: '(##) #####-####',
-}
+  CPF: "###.###.###-##",
+  CNPJ: "##.###.###/####-##",
+  PHONE: "(##) #####-####",
+};
 
 export const PERSON_TYPES = {
-    PF: {
-        code: 'PF',
-        label: 'Pessoa Física',
-    },
-    PJ: {
-        code: 'PJ',
-        label: 'Pessoa Jurídica',
-    },
-}
+  PF: {
+    code: "PF",
+    label: "Pessoa Física",
+  },
+  PJ: {
+    code: "PJ",
+    label: "Pessoa Jurídica",
+  },
+};

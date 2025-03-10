@@ -9,5 +9,5 @@
 </template>
 
 <script setup>
-const emit = defineEmits(["submit"]);
+defineEmits(["submit"]);
 </script>
