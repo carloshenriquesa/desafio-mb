@@ -5,7 +5,7 @@ Este projeto consiste em um aplicativo Vue.js localizado no diretório `client` 
 https://github.com/user-attachments/assets/85212dc8-4306-4014-903d-e97d28e54b6a
 
 Além do fluxo de sucesso, também há uma simulação de erro que acontece de maneira randômica:
-<img width="547" alt="Screenshot 2025-03-09 at 21 54 10" src="https://github.com/user-attachments/assets/3a6ee597-9726-464d-a067-2b24321f723f" />
+<img width="516" alt="Screenshot 2025-03-09 at 22 41 16" src="https://github.com/user-attachments/assets/d792a5db-884b-4f4b-8832-bc0101d9a5af" />
 
 ## Estrutura do Projeto
 
